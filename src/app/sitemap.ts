@@ -5,13 +5,13 @@ export default function sitemap():
 
   return [
     {
-      url: "https://yourdomain.com",
+      url: "https://https://odiportfolio.vercel.app",
       lastModified: new Date(),
     },
 
     {
       url:
-        "https://yourdomain.com/admin",
+        "https://https://odiportfolio.vercel.app/admin",
       lastModified: new Date(),
     },
   ];

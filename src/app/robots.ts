@@ -10,6 +10,6 @@ export default function robots():
     },
 
     sitemap:
-      "https://yourdomain.com/sitemap.xml",
+      "https://https://odiportfolio.vercel.app/sitemap.xml",
   };
 }

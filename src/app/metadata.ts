@@ -14,15 +14,22 @@ export const metadata: Metadata = {
     "UI UX",
     "Digital Creative",
     "Web Developer",
+    "Graphic Designer",
+    "Branding",
+    "Brand Identity",
+    "Personal Portfolio",
+    "Odinaka Ogbonna",
+    
+    
   ],
 
   authors: [
     {
-      name: "Odi",
+      name: "Odinaka Ogbonna",
     },
   ],
 
-  creator: "Odi",
+  creator: "Odinaka Ogbonna",
 
   openGraph: {
     title:
@@ -31,7 +38,7 @@ export const metadata: Metadata = {
     description:
       "Building premium digital experiences and scalable modern products.",
 
-    url: "https://yourdomain.com",
+    url: "https://odiportfolio.vercel.app",
 
     siteName: "Odi Portfolio",
 
@@ -62,6 +69,6 @@ export const metadata: Metadata = {
   },
 
   metadataBase: new URL(
-    "https://yourdomain.com"
+    "https://https://odiportfolio.vercel.app"
   ),
 };
