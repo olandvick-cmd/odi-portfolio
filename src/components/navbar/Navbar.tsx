@@ -1,36 +1,54 @@
+import Container from "../ui/Container";
+
 export default function Navbar() {
   return (
-    <header className="w-full border-b border-white/10">
-      <nav className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-        
-        <div>
-          <h1 className="text-2xl font-bold">
-            Odi<span className="text-purple-500">.</span>
-          </h1>
-        </div>
+    <header className="sticky top-0 z-50 border-b border-white/5 bg-[#050816]/80 backdrop-blur-xl">
+      
+      <Container>
 
-        <ul className="hidden md:flex items-center gap-8 text-sm text-gray-300">
-          <li className="hover:text-white cursor-pointer transition">
-            Home
-          </li>
+        <nav className="h-20 flex items-center justify-between">
 
-          <li className="hover:text-white cursor-pointer transition">
-            About
-          </li>
+          {/* Logo */}
+          <div>
+            <h1 className="text-3xl font-bold tracking-tight">
+              Odi<span className="text-purple-500">.</span>
+            </h1>
+          </div>
 
-          <li className="hover:text-white cursor-pointer transition">
-            Projects
-          </li>
+          {/* Nav */}
+          <ul className="hidden lg:flex items-center gap-10 text-sm text-gray-400">
 
-          <li className="hover:text-white cursor-pointer transition">
-            Contact
-          </li>
-        </ul>
+            <li className="hover:text-white transition cursor-pointer">
+              Home
+            </li>
 
-        <button className="bg-purple-600 hover:bg-purple-700 transition px-5 py-2 rounded-xl text-sm font-medium">
-          Let&apos;s Talk
-        </button>
-      </nav>
+            <li className="hover:text-white transition cursor-pointer">
+              About
+            </li>
+
+            <li className="hover:text-white transition cursor-pointer">
+              Projects
+            </li>
+
+            <li className="hover:text-white transition cursor-pointer">
+              Blog
+            </li>
+
+            <li className="hover:text-white transition cursor-pointer">
+              Contact
+            </li>
+
+          </ul>
+
+          {/* CTA */}
+          <button className="bg-purple-600 hover:bg-purple-700 transition px-6 py-3 rounded-2xl font-medium">
+            Let&apos;s Talk
+          </button>
+
+        </nav>
+
+      </Container>
+
     </header>
   );
 }

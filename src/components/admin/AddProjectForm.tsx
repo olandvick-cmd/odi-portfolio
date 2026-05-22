@@ -1,12 +1,14 @@
 "use client";
-
+import UploadImage from "./UploadImage";
 import { useState } from "react";
 import { supabase } from "@/lib/supabase";
+import toast from "react-hot-toast";
 
 export default function AddProjectForm() {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState(""); 
 
   const [loading, setLoading] = useState(false);
 
@@ -21,17 +23,19 @@ export default function AddProjectForm() {
         {
           title,
           description,
+           image,
         },
       ]);
 
     if (error) {
       console.log(error);
-      alert("Something went wrong");
+      toast.error("Something went wrong");
     } else {
-      alert("Project added successfully");
+      toast.success("Project added");
 
       setTitle("");
       setDescription("");
+      setImage("");
     }
 
     setLoading(false);
@@ -40,7 +44,7 @@ export default function AddProjectForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="bg-white/5 border border-white/10 rounded-3xl p-6 space-y-5"
+     className="bg-white/[0.03] border border-white/10 rounded-[32px] p-8 space-y-6 backdrop-blur-xl"
     >
       
       <div>
@@ -53,7 +57,7 @@ export default function AddProjectForm() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="Enter project title"
-          className="w-full bg-[#0f172a] border border-white/10 rounded-xl px-4 py-3 outline-none"
+          className="w-full bg-black/20 border border-white/10 focus:border-purple-500/50 transition rounded-2xl px-5 py-4 outline-none resize-none"
         />
       </div>
 
@@ -70,11 +74,11 @@ export default function AddProjectForm() {
           className="w-full bg-[#0f172a] border border-white/10 rounded-xl px-4 py-3 outline-none resize-none"
         />
       </div>
-
+      <UploadImage onUpload={setImage} />
       <button
         type="submit"
         disabled={loading}
-        className="bg-purple-600 hover:bg-purple-700 transition px-5 py-3 rounded-xl"
+        className="bg-white text-black hover:bg-gray-200 transition px-6 py-4 rounded-2xl font-medium"
       >
         {loading ? "Adding..." : "Add Project"}
       </button>

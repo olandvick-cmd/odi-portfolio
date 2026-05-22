@@ -1,26 +1,102 @@
 @import "tailwindcss";
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+@theme {
+  /* This links your Space Grotesk variable to Tailwind's font-sans class properly in v4 */
+  --font-sans: var(--font-space), ui-sans-serif, system-ui, sans-serif;
 }
 
-html{
-  scroll-behavior:smooth;
-}
+@layer base {
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
 
-body{
-  background:#050816;
-  color:white;
-  font-family:var(--font-space);
-}
+  html {
+    scroll-behavior: smooth;
+    width: 100%;
+  }
 
-button{
-  cursor:pointer;
-}
+  body {
+    background: #050816;
+    color: white;
+    width: 100%;
+    min-height: 100vh;
+    display: block; /* Guarantees layout boxes behave like standard blocks */
+  }
 
-::selection{
-  background:#7c3aed;
-  color:white;
+  button {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: #7c3aed;
+    color: white;
+  }
+}
+@layer base {
+  /* ... existing code ... */
+
+  /* Blog Markdown Styling Rules */
+  .blog-content h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+  .blog-content h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+  }
+  .blog-content h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .blog-content p {
+    margin-bottom: 1.25rem;
+    color: #cbd5e1; /* gray-300 */
+  }
+  .blog-content strong {
+    color: #ffffff;
+    font-weight: 600;
+  }
+  .blog-content ul, .blog-content ol {
+    margin-left: 1.5rem;
+    margin-bottom: 1.25rem;
+    list-style-type: disc;
+  }
+  .blog-content li {
+    margin-bottom: 0.5rem;
+  }
+  /* Elegant Inline Code Blocks */
+  .blog-content code {
+    background: rgba(255, 255, 255, 0.06);
+    padding: 0.2rem 0.4rem;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.9em;
+    color: #f472b6; /* pink-400 */
+  }
+  /* Preformatted Code Snippets blocks */
+  .blog-content pre {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1.25rem;
+    border-radius: 12px;
+    overflow-x: auto;
+    font-family: monospace;
+    margin: 1.5rem 0;
+  }
+  .blog-content pre code {
+    background: transparent;
+    padding: 0;
+    color: #e2e8f0;
+  }
 }
