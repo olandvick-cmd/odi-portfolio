@@ -1,5 +1,5 @@
 "use client";
-import { MessageSquare, NewspaperIcon } from "lucide-react";
+import { MessageSquare, NewspaperIcon, ScanFaceIcon, SpeakerIcon } from "lucide-react";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -39,6 +39,16 @@ const links = [
     name: "Blogs",
     href: "/admin/blog",
     icon: NewspaperIcon,
+  },
+  {
+    name: "Testimonials",
+    href: "/admin/testimonials",
+    icon: SpeakerIcon,
+  },
+  {
+    name: "Profile",
+    href: "/admin/profile",
+    icon: ScanFaceIcon,
   },
   
   {

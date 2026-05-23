@@ -1,71 +1,34 @@
 import { supabase } from "@/lib/supabase";
+import MessagesList from "@/components/admin/MessagesList";
 
-export default async function MessagesPage() {
+// 🔄 Force Next.js to always fetch real-time data instead of loading a static cache
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
-  const { data: messages } =
-    await supabase
-      .from("messages")
-      .select("*")
-      .order("created_at", {
-        ascending: false,
-      });
+export default async function AdminMessagesPage() {
+  const { data: messages, error } = await supabase
+    .from("messages")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    return (
+      <div className="p-8 text-red-400 bg-red-500/10 border border-red-500/20 rounded-2xl">
+        Failed to load client inbox messages: {error.message}
+      </div>
+    );
+  }
 
   return (
-    <div>
-
-      <div className="mb-10">
-
-        <h1 className="text-4xl font-bold mb-3">
-          Messages
-        </h1>
-
-        <p className="text-gray-400">
-          Contact form submissions.
+    <div className="space-y-8 p-6 md:p-10 max-w-6xl mx-auto">
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight text-white">Client Inbox</h1>
+        <p className="text-gray-400 text-sm mt-1">
+          Review project opportunities, messages, and incoming business leads.
         </p>
-
       </div>
 
-      <div className="space-y-6">
-
-        {messages?.map((message) => (
-
-          <div
-            key={message.id}
-            className="bg-white/[0.03] border border-white/10 rounded-[30px] p-8"
-          >
-
-            <div className="flex items-center justify-between gap-6 mb-6">
-
-              <div>
-
-                <h3 className="text-2xl font-semibold">
-                  {message.name}
-                </h3>
-
-                <p className="text-gray-500">
-                  {message.email}
-                </p>
-
-              </div>
-
-              <p className="text-sm text-gray-500">
-                {new Date(
-                  message.created_at
-                ).toLocaleDateString()}
-              </p>
-
-            </div>
-
-            <p className="text-gray-300 leading-relaxed">
-              {message.message}
-            </p>
-
-          </div>
-
-        ))}
-
-      </div>
-
+      <MessagesList initialMessages={messages || []} />
     </div>
   );
 }

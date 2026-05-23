@@ -16,44 +16,59 @@ export async function middleware(request: NextRequest) {
         getAll() {
           return request.cookies.getAll();
         },
+
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value, options }) =>
-            request.cookies.set(name, value, options)
-          );
+          cookiesToSet.forEach(({ name, value, options }) => {
+            request.cookies.set({
+              name,
+              value,
+              ...options,
+            });
+          });
+
           response = NextResponse.next({
             request: {
               headers: request.headers,
             },
           });
-          cookiesToSet.forEach(({ name, value, options }) =>
-            response.cookies.set(name, value, options)
-          );
+
+          cookiesToSet.forEach(({ name, value, options }) => {
+            response.cookies.set({
+              name,
+              value,
+              ...options,
+            });
+          });
         },
       },
     }
   );
 
   // Authenticate the user reliably
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   const url = request.nextUrl.clone();
+
   const isTargetingAdmin = url.pathname.startsWith("/admin");
   const isTargetingLogin = url.pathname === "/login";
 
-  // 🚨 RULE 1: If trying to access admin dashboards, but NOT logged in -> Bounce to /login
+  // Redirect unauthenticated users away from admin
   if (isTargetingAdmin && !user) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  // 🚨 RULE 2: If ALREADY logged in, prevent them from getting stuck back on the /login screen
+  // Prevent authenticated users from revisiting login page
   if (isTargetingLogin && user) {
-    return NextResponse.redirect(new URL("/admin/projects", request.url));
+    return NextResponse.redirect(
+      new URL("/admin/projects", request.url)
+    );
   }
 
   return response;
 }
 
-// Ensure middleware skips system images, static assets, and icons automatically
 export const config = {
   matcher: [
     "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
