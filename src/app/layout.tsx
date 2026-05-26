@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Odi Portfolio — Odinaka Ogbonna",
     description: "Frontend developer and digital creative.",
-    images: ["/og-image.svg"],
+    images: ["/og-image.png"],
   },
   metadataBase: new URL("https://odiportfolio.vercel.app"),
 };
