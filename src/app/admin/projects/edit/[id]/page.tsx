@@ -1,5 +1,6 @@
 import { supabase } from "@/lib/supabase";
 import EditProjectForm from "@/components/admin/EditProjectForm";
+import layout from "@/app/admin/layout";
 
 interface Props {
   params: Promise<{
@@ -33,7 +34,7 @@ export default async function EditProjectPage({
       <h1 className="text-4xl font-bold mb-10">
         Edit Project
       </h1>
-
+      
       <EditProjectForm project={project} />
 
     </div>

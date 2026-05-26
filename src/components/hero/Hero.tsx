@@ -115,7 +115,7 @@ export default function Hero({ avatarUrl, resumeUrl }: HeroProps) {
               transition={{ repeat: Infinity, duration: 4 }}
               className="absolute bottom-8 -left-5 md:-left-10 bg-[#0f172a]/90 backdrop-blur-xl border border-white/10 rounded-3xl px-7 py-5 shadow-2xl"
             >
-              <h3 className="text-4xl font-bold text-purple-400 mb-1">3+</h3>
+              <h3 className="text-4xl font-bold text-purple-400 mb-1">5+</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
                 Years of
                 <br />

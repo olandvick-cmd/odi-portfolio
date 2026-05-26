@@ -2,15 +2,15 @@ import Container from "../ui/Container";
 
 const stats = [
   {
-    number: "10+",
+    number: "20+",
     label: "Projects Completed",
   },
   {
-    number: "5+",
+    number: "15+",
     label: "Happy Clients",
   },
   {
-    number: "3+",
+    number: "5+",
     label: "Years Experience",
   },
   {

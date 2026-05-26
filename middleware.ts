@@ -8,62 +8,54 @@ export async function middleware(request: NextRequest) {
     },
   });
 
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    return response;
+  }
+
   const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
       cookies: {
         getAll() {
           return request.cookies.getAll();
         },
-
         setAll(cookiesToSet) {
           cookiesToSet.forEach(({ name, value, options }) => {
-            request.cookies.set({
-              name,
-              value,
-              ...options,
-            });
+            request.cookies.set({ name, value, ...options });
           });
-
           response = NextResponse.next({
-            request: {
-              headers: request.headers,
-            },
+            request: { headers: request.headers },
           });
-
           cookiesToSet.forEach(({ name, value, options }) => {
-            response.cookies.set({
-              name,
-              value,
-              ...options,
-            });
+            response.cookies.set({ name, value, ...options });
           });
         },
       },
     }
   );
 
-  // Authenticate the user reliably
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
+  const { data: { user } } = await supabase.auth.getUser();
   const url = request.nextUrl.clone();
-
+  
   const isTargetingAdmin = url.pathname.startsWith("/admin");
   const isTargetingLogin = url.pathname === "/login";
 
-  // Redirect unauthenticated users away from admin
+  // Crucial Sync: Handle entry route validations
   if (isTargetingAdmin && !user) {
-    return NextResponse.redirect(new URL("/login", request.url));
+    const redirectResponse = NextResponse.redirect(new URL("/login", request.url));
+    response.headers.forEach((value, key) => {
+      redirectResponse.headers.set(key, value);
+    });
+    return redirectResponse;
   }
 
-  // Prevent authenticated users from revisiting login page
   if (isTargetingLogin && user) {
-    return NextResponse.redirect(
-      new URL("/admin/projects", request.url)
-    );
+    const redirectResponse = NextResponse.redirect(new URL("/admin", request.url));
+    response.headers.forEach((value, key) => {
+      redirectResponse.headers.set(key, value);
+    });
+    return redirectResponse;
   }
 
   return response;

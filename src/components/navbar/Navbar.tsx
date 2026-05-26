@@ -44,13 +44,15 @@ export default function Navbar() {
             </li>
           </ul>
 
-          {/* CTA - Drops down cleanly to your custom Contact form */}
-          <Link 
-            href="#contact" 
+          {/* CTA - Now links straight to your WhatsApp line */}
+          <a 
+            href="https://wa.me/2349045003152?text=Hello%20Odi,%20I%27d%20like%20to%20discuss%20a%20project!" 
+            target="_blank"
+            rel="noopener noreferrer"
             className="bg-purple-600 hover:bg-purple-700 text-white text-sm px-6 py-3 rounded-2xl font-medium transition-all duration-200 shadow-lg shadow-purple-600/10 hover:shadow-purple-600/20"
           >
             Let&apos;s Talk
-          </Link>
+          </a>
 
         </nav>
       </Container>
