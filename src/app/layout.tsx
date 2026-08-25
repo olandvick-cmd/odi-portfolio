@@ -4,6 +4,7 @@ import { Space_Grotesk } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { Toaster } from "react-hot-toast";
 import Script from "next/script";
+import PWARegister from "@/components/PWARegister";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -73,7 +74,7 @@ export default function RootLayout({
         className={`${spaceGrotesk.variable} font-sans bg-[#050816] text-white antialiased`}
       >
         <Toaster position="top-right" />
-
+        <PWARegister />
         {children}
 
         <Analytics />
