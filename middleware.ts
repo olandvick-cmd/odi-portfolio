@@ -4,6 +4,15 @@ import { NextResponse, type NextRequest } from "next/server";
 export async function middleware(
   request: NextRequest
 ) {
+  // Canonicalize the admin route casing before Next.js route resolution.
+  // This keeps older/shared links such as /Admin/settings working on Linux hosting.
+  const pathname = request.nextUrl.pathname;
+  if (/^\/admin(?:\/|$)/i.test(pathname) && !pathname.startsWith("/admin")) {
+    const canonicalUrl = request.nextUrl.clone();
+    canonicalUrl.pathname = pathname.replace(/^\/admin/i, "/admin");
+    return NextResponse.redirect(canonicalUrl, 308);
+  }
+
   let response = NextResponse.next({
     request,
   });
@@ -49,9 +58,6 @@ export async function middleware(
     data: { user },
   } = await supabase.auth.getUser();
 
-  const pathname =
-    request.nextUrl.pathname;
-
   const isAdminRoute =
     pathname.startsWith("/admin");
 
@@ -78,6 +84,7 @@ export async function middleware(
 export const config = {
   matcher: [
     "/admin/:path*",
+    "/Admin/:path*",
     "/login",
   ],
 };
